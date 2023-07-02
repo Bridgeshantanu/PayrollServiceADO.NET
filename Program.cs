@@ -6,7 +6,7 @@ namespace PayrollServiceADO.NET
     {
         static void Main(string[] args)
         {
-            PayrollService.InsertRecord();
+            PayrollService.RetrieveData();
         }
 
     }

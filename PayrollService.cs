@@ -66,6 +66,40 @@ namespace PayrollServiceADO.NET
             cmd.ExecuteNonQuery();
             con.Close();
         }
+        public static void RetrieveData()
+        {
+
+            try
+            {
+                PayrollModel model = new PayrollModel();
+                con.Open();
+                string querry = @"select * from EmployeePayroll";
+                SqlCommand command = new SqlCommand(querry, con);
+                SqlDataReader sqlDataReader = command.ExecuteReader();
+                if (sqlDataReader.HasRows)
+                {
+                    Console.WriteLine("\n>> records retrived from database : ");
+                    while (sqlDataReader.Read())
+                    {
+                        model.name = Convert.ToString(sqlDataReader["name"]);
+                        model.salary = Convert.ToInt32(sqlDataReader["salary"]);
+                        model.start_date = Convert.ToDateTime(sqlDataReader["startdate"]);
+                        Console.WriteLine("name: {0}, salary: {1}, start date: {2}", model.name, model.salary, model.start_date);
+
+                    }
+                    sqlDataReader.Close();
+                }
+                else
+                {
+                    Console.WriteLine("\n>> your database is empty!!");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
     }
 }
