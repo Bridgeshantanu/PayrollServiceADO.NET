@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -45,6 +46,25 @@ namespace PayrollServiceADO.NET
                 Console.WriteLine(e.Message);
             }
 
+        }
+        public static void InsertRecord()
+        {
+            PayrollModel model = new PayrollModel();
+            Console.WriteLine("enter name");
+            model.name = Console.ReadLine();
+            Console.WriteLine("enter salary");
+            model.salary = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("enter startdate(yyyy-mm-dd)");
+            model.start_date = Convert.ToDateTime(Console.ReadLine());
+            con.Open();
+            string query = "InsertData";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@name", model.name);
+            cmd.Parameters.AddWithValue("@salary", model.salary);
+            cmd.Parameters.AddWithValue("@start_date", model.start_date);
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
 
     }

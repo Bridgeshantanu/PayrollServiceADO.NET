@@ -11,6 +11,6 @@ namespace PayrollServiceADO.NET
         public int id { get; set; }
         public string name { get; set; }
         public int salary { get; set; }
-        public DateOnly start_date { get; set; }
+        public DateTime start_date { get; set; }
     }
 }
