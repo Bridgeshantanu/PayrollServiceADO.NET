@@ -100,6 +100,37 @@ namespace PayrollServiceADO.NET
                 Console.WriteLine(ex.Message);
             }
         }
+        public static void RetrieveSalaryData(string name)
+        {
+            try
+            {
+                
+                    con.Open();
+                    string query = $"select salary from EmployeePayroll where name = @name";
+                    SqlCommand command = new SqlCommand(query, con);
+                    command.Parameters.AddWithValue("@name", name);
+                    SqlDataReader sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                       
+                        while (sqlDataReader.Read())
+                        {
+                            long salary = sqlDataReader.GetInt64(0);
+                            Console.WriteLine($"salary of employee {name}: {salary}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid employee name");
+                    }
+                    sqlDataReader.Close();
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
     }
 }
